@@ -1,4 +1,4 @@
-# Data-Structure I
+# Data-Structure I & II
 
 This repository is from my own original work that I have done in my Masters degree program in Computer Science 
 at DePaul University with Prof.Radha Jagadeesan and Prof John Rogers. 
