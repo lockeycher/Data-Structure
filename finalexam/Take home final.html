@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+  body {font-family: Calibri, Georgia; font-size: 11pt; }
+  h1, h2, h3 {font-family: Cambria, Arial, Helvetica; font-weight: lighter; color: darkblue;}
+  h1 {color: #7f00ff}
+  h2 {color: #0000ff}
+  h1 {font-size: 26pt; }
+  h2 {font-size: 14pt; }
+  h3 {font-size: 12pt; }
+  .code {font-family: Courier New; font-weight: bold; }
+  table {border-radius: 5px; border: 2px solid black; }
+  td, th {border: 1px solid gray; }
+  ul.innerlist {list-style: none; margin: 0; padding: 0}
+  a {text-decoration: none}
+  code {font-weight: bold}
+  </style>
+</head>
+
+<body>
+<div id="content">
+<h1>CSC 403/Data Structures II<br />Take home final exam</h1>
+<hr />
+<h2>Setup and submission</h2>
+<p>
+Place written answers into a text, Word, or PDF document with the name <code>finalexam</code> followed by the appropriate extension.  Place all Java code into an Eclipse package called <code>finalexam</code>.  Zip the package into a file called <code>finalexam.zip</code> and submit that single file.  Everything means:
+<ol>
+<li>the package folder <code>finalexam</code>
+<li>the document <code>finalexam.{txt,doc,docx,pdf}</code> with the written answers
+<li><code>HashTable.java</code>
+<li><code>DFSTrace.java</code>
+<li><code>BFSTrace.java</code>
+</ol>
+I have the test programs so please do not include those.
+</p>
+<h2>Written answers</h2>
+<p>
+1. (5 points) Draw the binary search tree that results after  inserting all of the following values: 15, 20, 25, 30, 5, 8, 10, 2, 16.
+</p>
+<p>
+2. (5 points) Draw the 2-3 tree that results after inserting all of the following values: 15, 20, 25, 30, 5, 8, 10, 2, 16.
+</p>
+<p>
+3. (5 points) Draw the left-leaning red-black tree that corresponds to the 2-3 tree drawn in the previous exercise.  Please clearly mark which edges are red and which are black.
+</p>
+<p>
+4. (5 points) Draw the AVL tree that results after inserting all of the following values: 15, 20, 25, 30, 5, 8, 10, 2, 16.  </p>
+<p>
+5. (10 points) Given an instance of a <code>LinearProbingHashST</code> from the <code>algs34</code> package where the key type is String and where the length of the table is set at 31, list the indices and contents in the <code>keys</code> array once the following strings have been inserted in this order:
+<ul>
+<li>"hello"
+<li>"hEllo"
+<li>"heLlo"
+<li>"helLo"
+<li>"HellO"
+<li>"hELLO"
+<li>"HeLLO"
+<li>"HElLO"
+<li>"HELlO"
+<li>"hELLo"
+</ul>
+Please provide written answers of the form:
+<pre>
+"hello": index
+"hEllo": index
+"heLlo": index
+"helLo": index
+"HellO": index
+"hELLO": index
+"HeLLO": index
+"HElLO": index
+"HELlO": index
+"hELLo": index
+Number of collisions: value
+</pre>
+You may certainly write code to help you but I just want the written answers.
+</p>
+<h2>Programming problems</h2>
+<p>
+6. (10 points) The class <code>HashTable</code> is an implementation of a hash table.  Add a method called <code>keys</code> that returns an Iterable object with the keys in the hash table sorted in ascending order.  You may test it with the program <code>TestHashTable</code>. Both are found in <a href="HashTableCode.zip">HashTableCode.zip</a>.
+</p>
+7. (10 points) Write a program <code>DFSTrace</code> that contains a version of a depth first search that prints a trace of its traversal.  Write a public static method:
+<pre>
+public static void dfsPrintTrace(Graph g) {
+    // *** Declare and initialize the marked array.
+    dfsPrintTrace(g, 0, marked, 0);
+}
+</pre>
+This method calls a private method:
+<pre>
+private static void dfsPrintTrace(Graph g, int start, boolean[] marked, int indent)
+</pre>
+All references to a method below refer to this second method.  Every message printed should be preceded by the number of spaces specified by the <code>indent</code> parameter.  A recursive call should pass an indent value with 1 added.
+<ul>
+<li>The first time the method visits a vertex, it should print the message "First time at vertex n", where n is the integer label of the vertex.
+<li>Every other time it visits a vertex, it should print the message "Visiting vertex n again".
+<li>When it exits, it should print the message "Finished searching from n".
+</ul>
+</p>
+<p>
+Here's the output when run on the file <code>data/tinyG.txt</code>:
+<pre>
+First visit to 0.
+ First visit to 6.
+  Visited 0 again.
+  First visit to 4.
+   First visit to 5.
+    First visit to 3.
+     Visited 5 again.
+     Visited 4 again.
+    Finished with 3.
+    Visited 4 again.
+    Visited 0 again.
+   Finished with 5.
+   Visited 6 again.
+   Visited 3 again.
+  Finished with 4.
+ Finished with 6.
+ First visit to 2.
+  Visited 0 again.
+ Finished with 2.
+ First visit to 1.
+  Visited 0 again.
+ Finished with 1.
+ Visited 5 again.
+Finished with 0.
+</pre>
+<p>
+<p>
+Here's the main method to insert into your program to test your method(s):
+<pre>
+	public static void main(String[] args) {
+		In input = new In("data/tinyG.txt");
+		Graph g = new Graph(input);
+
+		dfsPrintTrace(g);
+	}
+</pre>
+</p>
+<p>
+<strong>Include in the comments of your code the answer to this question: What is the pattern formed by the "First visit" and "Finished" messages?</strong>
+</p>
+<p>
+8. (10 points) Write a program <code>BFSTrace</code> that contains a version of a breadth first search that prints a trace.  Write a public method with the signature:
+<pre>
+public static void bfsPrintTrace(Graph g)
+</pre>
+Recall that a breadth first search uses a queue to organize visiting vertices.  Print the messages "Enqueueing n" and "Dequeueing n" at the appropriate places.
+</p>
+<p>
+Here's the output when run on the file <code>data/tinyG.txt</code>:
+<pre>
+Enqueued 0.
+Dequeued 0.
+Enqueued 6.
+Enqueued 2.
+Enqueued 1.
+Enqueued 5.
+Dequeued 6.
+Enqueued 4.
+Dequeued 2.
+Dequeued 1.
+Dequeued 5.
+Enqueued 3.
+Dequeued 4.
+Dequeued 3.
+</pre>
+<p>
+Here's the main method to insert into your program to test your method(s):
+<pre>
+	public static void main(String[] args) {
+		In input = new In("data/tinyG.txt");
+		Graph g = new Graph(input);
+
+		bfsPrintTrace(g);
+	}
+</pre>
+</p>
+<div>
+<p>
+<em>Document last updated on May 30th, 2018.</em>
+</p>
+</div>
+</body>
+</html>
